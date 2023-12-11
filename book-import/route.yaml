@@ -1,11 +1,11 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: book-import
+  name: open-education
   labels:
-    name: book-import
+    name: open-education
 spec:
   path: "/"
   to:
     kind: Service
-    name: book-import
+    name: open-education
