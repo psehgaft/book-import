@@ -1,8 +1,8 @@
 apiVersion: policy.open-cluster-management.io/v1
 kind: Policy
 metadata:
-  name: policygroup-book-import
-  namespace: book-import
+  name: policygroup-open-education
+  namespace: open-education
   annotations:
     policy.open-cluster-management.io/categories: PR.PT Protective Technology
     policy.open-cluster-management.io/controls: PR.PT-3 Least Functionality
@@ -14,13 +14,13 @@ spec:
         apiVersion: policy.open-cluster-management.io/v1
         kind: ConfigurationPolicy
         metadata:
-          name: policygroup-book-import-anyuid-scc
+          name: policygroup-open-education-anyuid-scc
         spec:
           namespaceSelector:
             exclude:
               - kube-*
             include:
-              - book-import
+              - open-education
           object-templates:
             - complianceType: musthave
               objectDefinition:
@@ -40,7 +40,7 @@ spec:
                   - 'system:cluster-admins'
                 kind: SecurityContextConstraints
                 metadata:
-                  name: book-import-scc
+                  name: open-education-scc
                   annotations:
                     kubernetes.io/description: >-
                       restricted denies access to all host features and requires
@@ -58,7 +58,7 @@ spec:
                 supplementalGroups:
                   type: RunAsAny
                 users:
-                  - 'system:serviceaccount:book-import:default'
+                  - 'system:serviceaccount:open-education:default'
                 volumes:
                   - configMap
                   - downwardAPI
@@ -73,13 +73,13 @@ spec:
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
 metadata:
-  name: book-import-scc
-  namespace: book-import
+  name: open-education-scc
+  namespace: open-education
 placementRef:
-  name: book-import-placement-0
+  name: open-education-placement-0
   kind: PlacementRule
   apiGroup: apps.open-cluster-management.io
 subjects:
-- name: policygroup-book-import
+- name: policygroup-open-education
   kind: Policy
   apiGroup: policy.open-cluster-management.io
